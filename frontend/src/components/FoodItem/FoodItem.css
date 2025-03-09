@@ -1,0 +1,23 @@
+
+/* .image-container{ */
+    /* height: 55%;} */
+
+.food-item-image{
+    transition:transform 0.4s ease-in 0.2s;
+}
+
+
+.food-item:hover .food-item-image{
+    transform:scale(1.1);
+}
+
+@media (min-width:452px) {
+    .item-name{
+        font-size: 11px;
+        font-weight: 600;
+        color:#5b5858;
+    }
+   .item-desc{
+    font-size: 15px;
+   }
+}

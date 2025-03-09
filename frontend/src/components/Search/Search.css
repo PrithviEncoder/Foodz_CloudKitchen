@@ -1,0 +1,14 @@
+
+
+.search{
+    @apply mx-8 mt-10  md:ml-24 lg:ml-32 xl:ml-36
+}
+
+
+.search-bar{
+    @apply w-full max-w-md px-4 py-2 border border-gray-400 rounded-full focus:outline-none  shadow-sm transition duration-200 
+}
+
+.search-heading{
+    @apply text-lg font-semibold text-[#454545] ml-2 mb-2
+}

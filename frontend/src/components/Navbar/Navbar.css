@@ -1,0 +1,5 @@
+
+
+.sign-in{
+    @apply  flex items-center gap-2 px-2 py-1 border-2 border-[#4b5d99] rounded-lg text-[#4b5d99] font-semibold transition-all duration-300 hover:bg-[#4b5d99] hover:text-white hover:shadow-lg hover:border-transparent active:scale-95
+}

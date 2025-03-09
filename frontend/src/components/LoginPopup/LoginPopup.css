@@ -1,0 +1,59 @@
+
+.login-popup{
+    position:fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: #00000090;
+    backdrop-filter:blur(.25rem);
+    display: grid;
+}
+.login-popup-container{
+    @apply place-self-center w-[max(23vw,330px)] text-[#808080] text-center bg-white flex flex-col gap-4 pt-6 pb-6 pl-7 pr-7 rounded-lg text-[14px] animate-[fade-in_1s]
+}
+@keyframes fade-in{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+.login-popup-title{
+    @apply flex justify-between items-center text-black
+}
+.login-popup-title-img{
+  width: 16px;
+  cursor: pointer;
+}
+.login-popup-title h2{
+  @apply font-bold text-lg
+}
+.login-popup-inputs{
+  @apply flex flex-col gap-5 
+}
+.login-popup-inputs input{
+  @apply outline-none  border-2  border-[#c9c9c9] rounded-md pt-2 pb-2 pr-1 pl-1
+}
+.login-popup-container button{
+    @apply border-none p-2 rounded-md text-white bg-[#007bff] cursor-pointer
+}
+.login-popup-container button:hover{
+  background-color: #0056b3;
+}
+.login-popup-condition{
+  @apply flex items-start gap-2 mt-[-6px]
+}
+.login-popup-condition input{
+  margin-top: 5px;
+}
+.login-popup p span{
+  color: #0008ff;
+  font-weight: 500;
+  cursor: pointer;
+}
+.forgot-password{
+  color: rgb(22, 22, 212);
+  cursor: pointer;
+  align-self: flex-start;
+}

@@ -1,0 +1,16 @@
+.app-download {
+    @apply mx-auto my-auto mt-6 text-lg md:mt-20 md:text-3xl text-center font-semibold
+}
+
+.app-download-platforms {
+    @apply flex justify-center gap-3 mt-10 m-auto mb-6 cursor-pointer md:mb-16
+}
+
+.app-download-platforms img {
+    transition: 0.5s;
+    @apply w-32 md:w-40
+}
+
+.app-download-platforms img:hover {
+    @apply scale-[1.05]
+}

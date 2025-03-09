@@ -1,0 +1,46 @@
+
+.login-icon{
+    position: relative;
+}
+
+.login-icon-box{
+    width: 40px;
+    height:40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    margin-top: -3px;
+}
+
+.login-icon-popup{
+  position: absolute;
+  display: none;
+  right: 0;
+  z-index: 1;
+}
+
+.login-icon-box:hover .login-icon-popup{
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    background-color:white;
+    border-radius:4px ;
+    padding: 12px 25px;
+    border: 1px solid gray;
+    outline: 2px solid white;
+    list-style: none;
+}
+
+
+
+.login-icon-popup li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.login-icon-popup li p{
+    color: rgb(69, 68, 68);
+}

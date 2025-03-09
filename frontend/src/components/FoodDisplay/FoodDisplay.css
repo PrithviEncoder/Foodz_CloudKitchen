@@ -1,0 +1,45 @@
+
+/*it is for less 450px or normal*/
+.food-display
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(129px,1fr));
+    gap:10px;
+    row-gap:30px;
+
+}  
+
+/*it will work 450 to 600 px*/
+@media (min-width:460px){
+    .food-display
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+        gap:10px;
+        row-gap:30px;
+    
+    }  
+}
+ 
+@media (min-width:768px) {
+    .food-display
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+        gap:10px;
+        row-gap:30px;
+        margin: 0 80px;
+    } 
+}
+
+@media (min-width:1024px){
+    .food-display
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+        gap:10px;
+        row-gap:30px;
+        margin:0 120px;
+    } 
+
+}
