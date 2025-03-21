@@ -34,13 +34,13 @@
 
 .Heading {
     font-size: clamp(1.5rem, 5vw, 3rem);
-    color: #fff;
+    color: rgb(92, 88, 88);
     z-index: 2;
 }
 
 .Quote {
     font-size: clamp(0.9rem, 2vw, 1.2rem);
-    color: #fff;
+    color: rgb(92, 88, 88);
     z-index: 2;
 }
 

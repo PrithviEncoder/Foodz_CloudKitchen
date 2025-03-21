@@ -8,6 +8,7 @@ import {config} from "dotenv"
 import cartRouter from "./routes/cartRoute.js"
 import orderRouter from "./routes/orderRoute.js"
 import couponRouter from "./routes/couponRoute.js"
+import chatbotRouter from "./routes/chatbotRouter.js"
 
 
 //loading env 
@@ -32,6 +33,7 @@ app.use("/api/user", userRouter)
 app.use("/api/cart",cartRouter)
 app.use("/api/order",orderRouter)
 app.use("/api/coupon",couponRouter)
+app.use("/api/chat",chatbotRouter)
 
 app.get("/", (req,res) => {
      res.send("app is working fine ")
