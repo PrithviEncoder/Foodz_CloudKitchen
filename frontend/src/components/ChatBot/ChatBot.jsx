@@ -26,6 +26,13 @@ const ChatBot = ({ cancel, setCancel }) => {
         }
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key == 'Enter') {
+            e.preventDefault()
+            sendMessage()
+        }
+    }
+
     return (
         <div className={`chatbot-container ${cancel ? 'right-[-300px] transition-all' : 'right-[0px] transition-all'}`}>
 
@@ -50,6 +57,7 @@ const ChatBot = ({ cancel, setCancel }) => {
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Ask about cart ..."
                 />
                 <button onClick={sendMessage}>Send</button>

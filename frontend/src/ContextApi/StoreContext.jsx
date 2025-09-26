@@ -9,6 +9,8 @@ const StoreContextProvider = (props) => {
 
     const [showForgotPopup, setShowForgotPopup] = useState(false)
 
+    const [showVerifyPopup, setShowVerifyPopup] = useState(false)
+    
     const [cartItems, setCartItems] = useState({})
 
     const [food_list, setFood_list] = useState([])
@@ -22,6 +24,8 @@ const StoreContextProvider = (props) => {
     const SERVER_URL = "http://localhost:8000"
 
     const [token, setToken] = useState("")
+
+    const [isVerified, setIsVerified] = useState(false)
 
 
     const addToCart = (itemId) => {
@@ -117,6 +121,12 @@ const StoreContextProvider = (props) => {
     //when page refresh it will run
     useEffect(() => {
         async function loadData() {
+            // const res = await axios.post(SERVER_URL + "/api/user/info", { email: localStorage.getItem("email") })
+            // if (res.data?.user?.isVerified) {
+            //     console.log("userinfo",res.data.user);
+                
+            //     setIsVerified(true)
+            // }
             await fetchFoodList()//load list on reload
             await fetchCoupon()//load coupon 
             if (localStorage.getItem("token")) {
@@ -137,6 +147,11 @@ const StoreContextProvider = (props) => {
         filterItems,
         coupon,
         discount,
+        showVerifyPopup,
+        isVerified,
+        setIsVerified,
+        setShowVerifyPopup,
+        fetchCoupon,
         setDiscount,
         setCoupon,
         setFilterItems,

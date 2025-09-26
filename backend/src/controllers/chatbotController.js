@@ -59,7 +59,7 @@ const getChatCompletion = async (req, res) => {
         ]
         const endingWords = [
             "ok", "okay", "got it", "glad", "understood", "alright", "fine", "noted", "sure", "sounds good",
-            "makes sense", "I see", "cool", "thanks", "thank you", "thankyou","awesome", "great", "perfect", "nice",
+            "makes sense", "I see", "cool", "thank", "thank you", "thankyou","awesome", "great", "perfect", "nice",
             "yep", "yeah", "right", "alright then", "good to know", "fair enough", "clear",
             "no problem", "gotcha", "copy that", "will do", "done", "that's all", "bye"
         ]
@@ -236,7 +236,7 @@ const getChatCompletion = async (req, res) => {
 
         }
         else {
-            botMessage = "dont understood what u mean please check query thanks"
+            botMessage = "Don't understood what u mean please check query thanks. You can ask about ORDER DETAILS, CART DETAILS, OPENING CLOSING TIMINGS , FOOD DETAILS, CANCEL ORDERS, DISCOUNT COUPON , ANY HELP"
         }
 
 

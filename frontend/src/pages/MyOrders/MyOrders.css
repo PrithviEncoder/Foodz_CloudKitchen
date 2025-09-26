@@ -51,3 +51,11 @@
     cursor: pointer;
     color: white;
 }
+
+@media (max-width:650px){
+
+    .my-orders-order{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+}

@@ -12,16 +12,21 @@ import Verify from './pages/Verify/Verify.jsx'
 import MyOrders from './pages/MyOrders/MyOrders.jsx'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword.jsx'
 import ResetPassword from './pages/ResetPassword/ResetPassword.jsx'
+import AboutUs from './pages/AboutUs/AboutUs.jsx'
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy.jsx'
+import VerifyEmail from './components/VerifyEmail/VerifyEmail.jsx'
 
 
 function App() {
-  const { showPopup,showForgotPopup } = useContext(StoreContext)
+  const { showPopup, showForgotPopup, showVerifyPopup, isVerified} = useContext(StoreContext)
 
   return (
     <>
 
       {showPopup ? <LoginPopup /> : <></>}
-      {showForgotPopup? <ForgotPassword/> : <></>}
+      {showForgotPopup ? <ForgotPassword /> : <></>}
+      {showVerifyPopup ? <VerifyEmail /> : <></>}
+      {/* {!isVerified ? <VerifyEmail/> : <></>} */}
 
       <div id="app">
         <Navbar />
@@ -37,7 +42,11 @@ function App() {
 
           <Route path='/myorders' element={<MyOrders />} />
 
-          <Route path='/reset-password/:resetToken' element={<ResetPassword/>} />
+          <Route path='/reset-password/:resetToken' element={<ResetPassword />} />
+
+          <Route path='/aboutus' element={<AboutUs />} />
+
+          <Route path='/privacy' element={<PrivacyPolicy />} />
         </Routes>
 
         <Footer />

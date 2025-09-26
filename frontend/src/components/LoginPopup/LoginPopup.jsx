@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { assets } from '../../assets/assets.js'
+import { Link } from 'react-router-dom'
 import './LoginPopup.css'
 import { StoreContext } from '../../ContextApi/StoreContext.jsx'
 import axios from "axios"
 
 const LoginPopup = () => {
-    const { SERVER_URL,setShowForgotPopup, setShowPopup, setToken, loadCartData } = useContext(StoreContext)
+    const { SERVER_URL, setShowForgotPopup, setShowPopup, setToken, loadCartData, setShowVerifyPopup } = useContext(StoreContext)
     const [localError, setLocalError] = useState("")
     const [currState, setCurrState] = useState("Login")
     const [data, setData] = useState({
@@ -27,7 +28,7 @@ const LoginPopup = () => {
         localStorage.setItem("email", data.email)
     }, [data])
 
-    //login /register
+    //login or register
     const onLogin = async (event) => {
 
         event.preventDefault()
@@ -43,9 +44,12 @@ const LoginPopup = () => {
 
             const response = await axios.post(newUrl, data)
             if (response.data.success) {
+                if (currState !== "Login") {
+                setShowVerifyPopup(true)
+                }
                 //userInfo username is stored in ls
-                localStorage.setItem("userInfo",JSON.stringify(response.data.user.name))
-                console.log("user info",response.data.user)
+                localStorage.setItem("userInfo", JSON.stringify(response.data.user.name))
+                console.log("user info", response.data.user)
                 //token 
                 setToken(response.data.token)
                 localStorage.setItem("token", response.data.token)
@@ -81,14 +85,16 @@ const LoginPopup = () => {
                 <p onClick={() => {
                     setShowForgotPopup(true)
                     setShowPopup(false)
-                 }} className='forgot-password'>Forgot password?</p>
+                }} className='forgot-password'>Forgot password?</p>
                 <p className='text-red-600 text-[14px]'>{localError}</p>
                 <button type='submit'>
                     {currState === "Sign Up" ? "Create accout" : "Login"}
                 </button>
                 <div className="login-popup-condition">
                     <input type="checkbox" required />
-                    <p>By continuing , i agree to the terms of use & privacy policy.</p>
+                    <p>By continuing , i agree to the terms of use &
+                        <Link to='/privacy'><span className='text-blue-600'>privacy policy.</span></Link>
+                    </p>
                 </div>
                 <div className="login-popup-links">
                     {currState === "Login" ? <p>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click here</span></p>

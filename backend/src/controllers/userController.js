@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import bcrypt, { genSalt } from "bcrypt"
 import validator from "validator"
 import crypto from 'crypto'
-import { sendPasswordResetMail, sendPasswordResetSuccessMail } from "../mail/mail.methods.js";
+import { sendPasswordResetMail, sendPasswordResetSuccessMail, sendVerificationMail } from "../mail/mail.methods.js";
 import 'dotenv/config'
 
 
@@ -83,15 +83,28 @@ const registerUser = async (req, res) => {
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const newUser = new userModel({
+        const verificatioinToken = Math.floor(100000 + Math.random() * 900000).toString()
+
+        const newUser = await new userModel({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            verificatioinToken,
+            verificatioinExpiry: Date.now() + (15 * 60 * 1000)
         })
-        const user = await newUser.save()
+        const createdUser = await newUser.save()
+
+        const user = await userModel.findById(createdUser._id).select("-password")
+
+        if (!user) {
+           return res.json({success:false,message:"User  not created"})
+        }
 
         //generate token
-        const token = createToken(user._id)
+        const token = createToken(createdUser._id)
+
+        //verify mail
+        await sendVerificationMail(createdUser.email, verificatioinToken)
 
         return res.status(200).json({ success: true, token, user })
 
@@ -101,6 +114,36 @@ const registerUser = async (req, res) => {
     }
 
 
+}
+
+//verify email
+const verifyEmail = async (req, res) => {
+    const { code } = req.body
+    try {
+        const user = await userModel.findOne({
+            verificatioinToken: code,
+            verificatioinExpiry: { $gt: Date.now() }
+        })
+
+        if (!user) {
+            return res.json({ success: false, message: "Code is wrong or Expired" })
+        }
+
+        user.isVerified = true
+        user.verificatioinToken = undefined
+        user.verificatioinExpiry = undefined
+        await user.save()
+
+        const userResponse = await userModel.findById(user._id).select("-password")
+
+        const token = createToken(user._id);
+
+        res.status(200).json({ success: true, user:userResponse, token , message: "user verified successfully" })
+
+        
+    } catch (error) {
+        res.json({ success: false, message: "Error in user verification" })
+    }
 }
 
 //forgot password
@@ -180,4 +223,38 @@ const resetPassword = async (req, res) => {
 
 }
 
-export { loginUser, registerUser, forgotPassword, resetPassword }
+const removeUser = async (req, res) => {
+    const { email } = req.body
+
+    try {
+        const user = await userModel.findOne({ email });
+    
+        if (!user) {
+            return res.json({ success: false, message: "User  not found" })
+        }
+    
+        await userModel.findByIdAndDelete(user._id)
+    
+        res.json({ success: true, message: "User successfully deleted" })
+    } catch (error) {
+        res.json({ success: false, message: "Error in deleting user" })
+    }
+
+}
+
+const userInfo = async (req, res) => {
+    const { email } = req.body
+    try {
+        const user = userModel.findOne({ email })
+        if (!user) {
+            return res.json({ success: false, message: "User not found" })
+        }
+        res.json({success:true,user})
+
+    } catch (error) {
+        res.json({ success: false, message: "Error in getting user info" })
+    }
+}
+
+
+export { loginUser, registerUser, forgotPassword, resetPassword, verifyEmail, removeUser,userInfo }

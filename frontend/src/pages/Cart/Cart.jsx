@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 const Cart = () => {
 
-  const { food_list, cartItems, addToCart, removeFromCart, getTotalCartAmount, SERVER_URL, coupon, discount, setDiscount } = useContext(StoreContext);
+  const { food_list, cartItems, addToCart, removeFromCart, getTotalCartAmount, SERVER_URL, coupon, discount, setDiscount,fetchCoupon } = useContext(StoreContext);
 
   const [code, setCode] = useState("")
 
@@ -27,7 +27,8 @@ const Cart = () => {
 
   //very imp on changing cart after applying discount discount should be 0 .
   useEffect(() => {
-   setDiscount(0)
+    setDiscount(0)
+    fetchCoupon()
   }, [cartItems])
 
 

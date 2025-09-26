@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true ,unique:true},
     password: { type: String, required: true },
     cartData: { type: Object, default: {} },
+    isVerified: {type:Boolean , default:false},
+    verificatioinToken: String,
+    verificatioinExpiry: Date,
     resetPasswordToken:String,
     resetPasswordExpiry:Date
 

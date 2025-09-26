@@ -1,6 +1,25 @@
 
 import { sgMail, sender } from './mail.config.js'
-import { CLOUD_KITCHEN_PASSWORD_RESET_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE } from './mail.template.js';
+import { CLOUD_KITCHEN_PASSWORD_RESET_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE, VERIFICATION_EMAIL_TEMPLATE } from './mail.template.js';
+
+export const sendVerificationMail = async (email, verificationToken) => {
+  
+    try {
+        const response = await sgMail.send({
+            from: sender,
+            to: email,
+            subject: "Verify Your Email",
+            html: VERIFICATION_EMAIL_TEMPLATE.replace("{verificationCode}", verificationToken),
+        
+        })
+
+    // Proper logging for SendGrid response
+    console.log(`Verification code email successfully sent to ${email}: ${response[0].statusCode}`);
+        
+    } catch (error) {
+        console.error(`Error sending Verification : ${error}`);   
+    }
+}
 
 export const sendPasswordResetMail = async (email, resetURL) => {
     

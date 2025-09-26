@@ -9,7 +9,7 @@
     padding: 14px;
     position: fixed;
     right: 0;
-    bottom: 100px;
+    bottom: 50px;
     z-index: 11;
 }
 
@@ -24,33 +24,33 @@
 }
 
 .message {
-    padding: 6px 10px;  
+    padding: 6px 10px;
     margin: 8px 0;
     border-radius: 10px;
-    max-width: 85%;  
+    max-width: 85%;
     word-wrap: break-word;
     line-height: 1.4;
     font-size: 13px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.btns{
+.btns {
     width: 100%;
     display: flex;
     justify-content: space-around;
 }
 
-.chatbot-remove{
+.chatbot-remove {
     width: 7rem;
     background-color: #2980b9;
-    color:white;
+    color: white;
     border-radius: 6px;
 }
 
-.chatbot-clear{
-    width:7rem;
-    background-color:rgb(79, 72, 72);
-    color:white;
+.chatbot-clear {
+    width: 7rem;
+    background-color: rgb(79, 72, 72);
+    color: white;
     border-radius: 6px;
 }
 
@@ -73,19 +73,19 @@
     border-top: 1px solid #ddd;
     background-color: #fff;
     padding: 5px;
-    justify-content: space-between;  
+    justify-content: space-between;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
 }
 
 .chat-input input {
     flex: 1;
-    padding: 6px 10px; 
+    padding: 6px 10px;
     border: 1px solid #ddd;
     border-radius: 20px;
     outline: none;
     transition: border-color 0.3s;
-    margin-right: 5px; 
+    margin-right: 5px;
 }
 
 .chat-input input:focus {
@@ -93,7 +93,7 @@
 }
 
 .chat-input button {
-    padding: 6px 10px;  
+    padding: 6px 10px;
     background-color: #3498db;
     color: white;
     border: none;
@@ -116,6 +116,51 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width:400px) {
+
+    .chatbot-container {
+        width: 250px;
+        padding: 8px;
+        bottom: 300px;
+    }
+
+
+    .chat-window {
+        height: 350px;
+        padding: 5px;
+    }
+
+    .message {
+        font-size: 11px;
+    }
+
+    .chatbot-remove {
+        width: 5rem;
+    }
+
+    .chatbot-clear {
+        width: 5rem;
+    }
+
+    .chat-input input {
+        width: 90%;
+        padding: 4px;
+        border-radius: 18px;
+        margin-right: 0px;
+    }
+
+    .chat-input button {
+        padding: 4px 6px;
+    }
 }
