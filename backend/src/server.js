@@ -10,6 +10,9 @@ import orderRouter from "./routes/orderRoute.js"
 import couponRouter from "./routes/couponRoute.js"
 import chatbotRouter from "./routes/chatbotRouter.js"
 
+import path from "path";
+import { fileURLToPath } from "url";
+
 
 //loading env 
 config()
@@ -24,7 +27,19 @@ app.use(express.urlencoded({ extended: true }));//to handle formdata
 app.use(cors());
 
 //database connection
-connectDB()
+connectDB();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+    });
+}
+
 
 //api endpoint middleware
 app.use("/api/food", foodRouter)

@@ -4,7 +4,16 @@ import fs from "fs"
 //add food item
 
 const addFood = async (req, res) => {
-    let image_filename = `${req.file.filename}`
+
+    
+    //it was by mutler alone
+    //let image_filename = `${req.file.filename}`
+
+
+    const image_url = req.file?.path;//set by multer-storage-cloudinary
+    //eg req.file.path has ('https://res.cloudinary.com/cloud-prithvi/image/upload/v1758980151/cloudkitchen_assets/adqdvys5hlsu5g4qlfd0.jpg')
+    console.log(req.file.path);
+    
 
     const food = new foodModel({
         name: req.body.name,
@@ -12,7 +21,7 @@ const addFood = async (req, res) => {
         price: req.body.price,
         category: req.body.category,
         tags: req.body.tags,
-        image: image_filename
+        image: image_url
     })
 
     try {

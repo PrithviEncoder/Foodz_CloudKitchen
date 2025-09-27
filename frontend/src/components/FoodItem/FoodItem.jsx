@@ -14,7 +14,7 @@ const FoodItem = ({ id, name, image, price, description }) => {
 
                 <div className="image-container rounded-t-lg relative overflow-hidden">
 
-                    <img src={SERVER_URL+"/images/"+image} alt="food-item-image" className="food-item-image rounded-t-lg" />
+                    <img src={image} alt="food-item-image" className="food-item-image rounded-t-lg" />
 
                     {!cartItems[id] ? (<img src={assets.add_icon_white} className="absolute bottom-2 right-2 w-6" onClick={()=>addToCart(id)} />) : (<div className="update-item w-16 flex justify-between items-center absolute bottom-2 right-2 bg-white rounded-full pl-1 pr-1">
                         <img src={assets.add_icon_green} alt="" className="add-item w-5" onClick={()=>addToCart(id)} />

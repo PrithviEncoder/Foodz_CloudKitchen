@@ -1,13 +1,13 @@
 import couponModel from "../models/couponModel.js"
 
-
+//MAYBE issues in this code , check in below comments.
 
 const createCoupon = async (req, res) => {
 
     try {
         const { name, msg, type, condition, value } = req.body;
 
-        if (!name || !msg || !type || !condition || !value) {
+        if (!name || !msg || !type || !condition || !value) {   //check here if success is false then
             return res.status(400).json({ success: true, message: "All fields are required" });
         }
 
