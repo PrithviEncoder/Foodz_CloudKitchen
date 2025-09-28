@@ -29,9 +29,24 @@ app.use(cors());
 //database connection
 connectDB();
 
+//api endpoint middleware
+app.use("/api/food", foodRouter)
+app.use("/images", express.static('uploads'))
+app.use("/api/user", userRouter)
+app.use("/api/cart",cartRouter)
+app.use("/api/order",orderRouter)
+app.use("/api/coupon",couponRouter)
+app.use("/api/chat", chatbotRouter)
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+//put it below all api routes because if any api route is not matched then only it will come to this
+//if i put it above api routes then all api routes then when api route is called it will go to this and give index.html
+
+//Express looks for the first matching route or middleware for each request.
+
+// Once it finds a match, it handles the request and stops looking further (unless you explicitly call next() to pass control).
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
@@ -40,15 +55,6 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 
-
-//api endpoint middleware
-app.use("/api/food", foodRouter)
-app.use("/images", express.static('uploads'))
-app.use("/api/user", userRouter)
-app.use("/api/cart",cartRouter)
-app.use("/api/order",orderRouter)
-app.use("/api/coupon",couponRouter)
-app.use("/api/chat",chatbotRouter)
 
 app.get("/", (req,res) => {
      res.send("app is working fine ")
