@@ -1,6 +1,8 @@
 import orderModel from "../models/orderModel.js"
 import userModel from "../models/userModel.js"
+import { config } from "dotenv";
 import Stripe from "stripe"
+config();
 
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -8,7 +10,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 //placing user order form frotnend
 const placeOrder = async (req, res) => {
-    const frontend_url = "http://localhost:5173"
+    const frontend_url = `${process.env.CLIENT_URL}`;
+    console.log("stripe client url", frontend_url);
+    //dont know calling process.env.CLIENT_URL with out ``cauing problem even in below log
+    //console.log("without stirng", process.env.CLIENT_URL);
+    
     try {
         //add order details in DB
         const newOrder = new orderModel({
