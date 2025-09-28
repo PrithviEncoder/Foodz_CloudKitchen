@@ -100,7 +100,7 @@ const RecommendationSystem = () => {
                 {/* images */}
                 <div className="relative w-full h-24 lg:h-32 rounded-lg overflow-hidden shadow-sm">
                   <img
-                    src={SERVER_URL + "/images/" + card.image}
+                    src={card.image}
                     alt={card.name}
                     className="w-full h-full object-cover"
                   />

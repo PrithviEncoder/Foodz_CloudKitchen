@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react';
 
 export const StoreContext = createContext();
 
@@ -21,7 +21,12 @@ const StoreContextProvider = (props) => {
 
     const [discount, setDiscount] = useState(0)
 
-    const SERVER_URL = "http://localhost:8000"
+    const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+    console.log("SERVER_URL",SERVER_URL);
+
+    //OPTION 2 INSTEAD OF .ENV AND .ENV.PRODUCTION
+    // const islocalhost = window.location.hostname === "localhost"
+    // const SERVER_URL = !islocalhost ? "https://foodz-cloudkitchen.onrender.com/" : "http://localhost:8000"
 
     const [token, setToken] = useState("")
 
