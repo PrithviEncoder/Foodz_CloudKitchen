@@ -68,3 +68,33 @@
     border-radius: 5px;
     z-index: 2;
 }
+
+@media (max-width: 768px) {
+    .Header {
+        width: 90%;
+        aspect-ratio: 16 / 9;
+    }
+
+    .Header-info-box {
+        left: 3%;
+        bottom: 1.5%;
+    }
+
+    .Heading {
+        font-size: clamp(1.2rem, 6vw, 2rem);
+    }
+
+    .Quote {
+        font-size: clamp(0.8rem, 3vw, 1rem);
+    }
+
+    .view-btn {
+        font-size: max(2vw, 10px);
+        padding: 2vw 4vw;
+    }
+
+    .user-info {
+        font-size: 1.2rem;
+        padding: 4px 8px;
+    }
+}
