@@ -95,7 +95,7 @@ const Navbar = () => {
         </ul>
       )}
 
-      <div className={`${screenWidth < 640 && screenWidth > 500 ? 'mr-20 gap-10' : 'mr-4 gap-6'} navbar-right flex ${screenWidth <= 500 ? 'gap-3 mr-2' : ''}`}>
+      <div className={`${screenWidth < 640 && screenWidth > 500 ? 'mr-20 gap-10' : 'mr-4 gap-6'} navbar-right flex ${screenWidth <= 500 ? 'gap-2 mr-2' : ''}`}>
         <a href="#search">
         <FontAwesomeIcon  icon={faSearch} size='2x' className='text-gray-600'/>
         </a>

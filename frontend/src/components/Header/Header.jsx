@@ -18,7 +18,7 @@ const Header = () => {
           Your browser does not support the video tag.
         </video>
         <div className="Header-info-box">
-          <h2 className='user-info'>{name ? "WELCOME " + name.toUpperCase() : ""}</h2>
+          <h2 className={`user-info ${!name ? 'bg-transparent' : ''}`}>{name ? "WELCOME " + name.toUpperCase() : ""}</h2>
           <h2 className='Heading'>Order food </h2>
           <p className='Quote'>Delight in every flavor, every moment.</p>
           <a href="#category">
