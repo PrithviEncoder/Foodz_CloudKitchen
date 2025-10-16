@@ -48,7 +48,7 @@ export const CLOUD_KITCHEN_PASSWORD_RESET_TEMPLATE = `
     <div style="text-align: center; margin: 30px 0;">
       <a href="{resetURL}" style="background-color: #FF5722; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
     </div>
-    <p>This link will expire in 1 hour for security reasons.</p>
+    <p>This link will expire in 15 minutes for security reasons.</p>
     <p>Craving something delicious? Visit us again soon!</p>
     <p>Bon Appétit!<br>The Cloud Kitchen Team</p>
   </div>

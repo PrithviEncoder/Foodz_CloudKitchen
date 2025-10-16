@@ -200,7 +200,7 @@ const resetPassword = async (req, res) => {
         });//if after15 min link is click then user will not we there
 
         if (!user) {
-            return res.status(400).json({ success: false, message: "User not found for reset password" });
+            return res.status(400).json({ success: false, message: "User not found for reset password", alreadyResetOrExpired: true });
         }
 
         //hashing user password

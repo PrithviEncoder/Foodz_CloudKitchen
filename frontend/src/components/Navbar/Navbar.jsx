@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  const { getTotalCartAmount, token, setToken ,setShowPopup} = useContext(StoreContext);
+  const {disableComponent, getTotalCartAmount, token, setToken ,setShowPopup} = useContext(StoreContext);
 
   const toggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,7 +29,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="navbar relative w-screen m-auto h-20 flex justify-between items-center lg:w-4/5">
+    <div className={`navbar relative w-screen m-auto h-20 flex justify-between items-center lg:w-4/5 
+    ${disableComponent ? 'hidden' : ''}
+    `}>
       <Link to="/">
         <img src='/logo.jpg' alt="Logo" className="logo w-20 ml-5 sm:w-32 sm:ml-10 md:w-36 xl:w-40" />
       </Link>

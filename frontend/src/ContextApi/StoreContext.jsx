@@ -21,6 +21,8 @@ const StoreContextProvider = (props) => {
 
     const [discount, setDiscount] = useState(0)
 
+    const [disableComponent, setDisableComponent] = useState(false)
+
     const SERVER_URL = import.meta.env.VITE_SERVER_URL;
     console.log("SERVER_URL",SERVER_URL);
 
@@ -154,6 +156,8 @@ const StoreContextProvider = (props) => {
         discount,
         showVerifyPopup,
         isVerified,
+        disableComponent,
+        setDisableComponent,
         setIsVerified,
         setShowVerifyPopup,
         fetchCoupon,

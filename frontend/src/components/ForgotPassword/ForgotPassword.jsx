@@ -10,7 +10,9 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("")
   const { setShowForgotPopup, SERVER_URL } = useContext(StoreContext)
    // Use useRef for timeouts to persist them across renders
-   const timeOutErr = useRef(null);
+  const timeOutErr = useRef(null);
+  const timeOutSucc = useRef(null);
+  const btnRef = useRef(null);
 
   const onChangeHandler = (event) => {
     setEmail(event.target.value)
@@ -18,14 +20,31 @@ const ForgotPassword = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
+
+    btnRef.current.disabled = true; // Disable button to prevent multiple submissions
+    btnRef.current.classList.add('disabled-btn');
+    
     axios.post(SERVER_URL + "/api/user/forgot", { email })
       .then((response) => {
         setSucc(response?.data?.message)
+        timeOutSucc.current = setTimeout(() => { 
+          setSucc("");
+          setEmail("");
+          btnRef.current.disabled = false; // Re-enable button after operation
+          btnRef.current.classList.remove('disabled-btn');
+          setShowForgotPopup(false);
+        }, 2200);
       })
       .catch((error) => {
-        setErr(error.response?.data?.message)
+
+        setErr(error.response?.data?.message);
+        btnRef.current.disabled = true;
+        btnRef.current.classList.add('disabled-btn');
+
         timeOutErr.current=setTimeout(() => {
-          setErr("")
+          setErr("");
+          btnRef.current.disabled = false; // Re-enable button after operation
+          btnRef.current.classList.remove('disabled-btn');
         }, 2200);
         console.log(error.response?.data?.message || "Error in forgot email")
       })
@@ -34,7 +53,8 @@ const ForgotPassword = () => {
   // Clear timeout if component unmounts before it finishes
   useEffect(() => {
     return () => {
-      clearTimeout(timeOutErr.current) 
+      clearTimeout(timeOutErr.current);
+      clearTimeout(timeOutSucc.current);
     }
   }, []);
 
@@ -50,7 +70,7 @@ const ForgotPassword = () => {
           onChange={onChangeHandler}
           value={email}
         />
-        <button type="submit" className="submit-btn">
+        <button type="submit" ref={btnRef} className="submit-btn">
           Send Reset Link
         </button>
         <p onClick={() => setShowForgotPopup(false)} className='back'>back</p>
