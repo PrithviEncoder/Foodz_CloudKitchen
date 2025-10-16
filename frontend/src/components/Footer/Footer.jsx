@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../../assets/assets.js'
 import './Footer.css'
 import { Link } from 'react-router-dom'
+import { StoreContext } from '../../ContextApi/StoreContext.jsx'
 
 const Footer = () => {
+
+  const { disableComponent } = useContext(StoreContext);
+
   return (
-      <div className='footer' id='footer'>
+      <div className={`footer ${disableComponent ? 'hidden' : ''}`} id='footer'>
           <div className="footer-content">
               <div className="footer-content-left">
                   <img src='/logo.jpg' alt="logo" />
