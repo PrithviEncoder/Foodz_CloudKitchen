@@ -55,6 +55,8 @@ const RecommendationSystem = () => {
       }
 
       setCards(newCards)
+      console.log("REcommm", newCards);
+      
 
     } catch (error) {
       console.log(error || "error in recommadation api call loc:frontend");

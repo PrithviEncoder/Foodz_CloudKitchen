@@ -32,7 +32,7 @@ const StoreContextProvider = (props) => {
 
     const [token, setToken] = useState("")
 
-    const [isVerified, setIsVerified] = useState(false)
+    const [isVerified, setIsVerified] = useState(null)
 
 
     const addToCart = (itemId) => {
@@ -120,6 +120,29 @@ const StoreContextProvider = (props) => {
         }
     }
 
+    const checkIsVerified = async () => {
+        const res = await axios.post(SERVER_URL + "/api/user/info",{}, { headers: { token: localStorage.getItem("token") } });
+
+        if (res?.data?.success) {
+         setIsVerified(res?.data?.user?.isVerified);
+        setShowVerifyPopup(!(res?.data?.user?.isVerified));
+        //donot write setShowVerifyPopup(isVerified) since it take time to update state.
+        console.log("Is Verified:", res?.data?.user?.isVerified);
+        console.log("debug", res);
+        }
+        else {
+            console.error("Error in verifying user:", res?.data?.message);
+       }
+        
+        
+    }
+
+    useEffect(() => {
+        if (token) {
+            checkIsVerified();
+        }
+    }, [token])
+
     //to check in console for items in cart
     useEffect(() => {
         console.log(cartItems)
@@ -127,13 +150,9 @@ const StoreContextProvider = (props) => {
 
     //when page refresh it will run
     useEffect(() => {
+
         async function loadData() {
-            // const res = await axios.post(SERVER_URL + "/api/user/info", { email: localStorage.getItem("email") })
-            // if (res.data?.user?.isVerified) {
-            //     console.log("userinfo",res.data.user);
-                
-            //     setIsVerified(true)
-            // }
+      
             await fetchFoodList()//load list on reload
             await fetchCoupon()//load coupon 
             if (localStorage.getItem("token")) {
@@ -172,7 +191,8 @@ const StoreContextProvider = (props) => {
         addToCart,
         removeFromCart,
         getTotalCartAmount,
-        loadCartData
+        loadCartData,
+        checkIsVerified
     }
 
     return (
