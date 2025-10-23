@@ -83,14 +83,15 @@ const registerUser = async (req, res) => {
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const verificatioinToken = Math.floor(100000 + Math.random() * 900000).toString()
+        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString()
 
         const newUser = await new userModel({
             name,
             email,
             password: hashedPassword,
-            verificatioinToken,
-            verificatioinExpiry: Date.now() + (15 * 60 * 1000)
+            isVerified: false,
+            verificationToken,
+            verificationExpiry: Date.now() + (15 * 60 * 1000)
         })
         const createdUser = await newUser.save()
 
@@ -104,7 +105,7 @@ const registerUser = async (req, res) => {
         const token = createToken(createdUser._id)
 
         //verify mail
-        await sendVerificationMail(createdUser.email, verificatioinToken)
+        await sendVerificationMail(createdUser.email, verificationToken)
 
         return res.status(200).json({ success: true, token, user })
 
@@ -121,17 +122,17 @@ const verifyEmail = async (req, res) => {
     const { code } = req.body
     try {
         const user = await userModel.findOne({
-            verificatioinToken: code,
-            verificatioinExpiry: { $gt: Date.now() }
+            verificationToken: code,
+            verificationExpiry: { $gt: Date.now() }
         })
 
         if (!user) {
-            return res.json({ success: false, message: "Code is wrong or Expired" })
+            return res.json({ success: false, message: "OTP is Wrong or Expired" })
         }
 
         user.isVerified = true
-        user.verificatioinToken = undefined
-        user.verificatioinExpiry = undefined
+        user.verificationToken = undefined
+        user.verificationExpiry = undefined
         await user.save()
 
         const userResponse = await userModel.findById(user._id).select("-password")
@@ -243,18 +244,49 @@ const removeUser = async (req, res) => {
 }
 
 const userInfo = async (req, res) => {
-    const { email } = req.body
+    const { userId } = req.body
+    
     try {
-        const user = userModel.findOne({ email })
+        const user = await userModel.findById(userId).select("-password -__v -_id -resetPasswordToken -resetPasswordExpiry -verificatioinToken -verificatioinExpiry");
+
         if (!user) {
             return res.json({ success: false, message: "User not found" })
         }
-        res.json({success:true,user})
+
+       return res.json({success:true,user})
 
     } catch (error) {
-        res.json({ success: false, message: "Error in getting user info" })
+       return res.json({ success: false, message: "Error in getting user info" })
+    }
+}
+
+const resendVerificationCode = async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            return res.json({ success: false, message: "User not found" });
+        }
+
+        const newVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        const newVerificationExpiry = Date.now() + (1 * 15 * 60 * 1000);//15 min from now.
+
+        user.isVerified = false;
+        user.verificationToken = newVerificationCode;
+        user.verificationExpiry = newVerificationExpiry;
+        await user.save();
+
+        await sendVerificationMail(user.email, newVerificationCode);
+
+        return res.json({ success: true, message: "Successfully Resend OTP." });
+
+    } catch (error) {
+        return res.json({ success: false, message: "Error in resending verification code" });
     }
 }
 
 
-export { loginUser, registerUser, forgotPassword, resetPassword, verifyEmail, removeUser,userInfo }
+export { loginUser, registerUser, forgotPassword, resetPassword, verifyEmail, removeUser, userInfo, resendVerificationCode }

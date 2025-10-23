@@ -53,20 +53,20 @@ const mostFrequentItem = async (req, res) => {
         ])
 
         if (mostfreqItem.length == 0) {
-            return res.json({ success: false, message: "no freq item found" })
+            return res.status(404).json({ success: false, message: "no freq item found" })
         }
 
         //find item
         const item = await foodModel.findById(mostfreqItem[0]._id)
 
         if (!item) {
-            return res.json({ success: false, message: " food Item not found loc:recc.model " })
+            return res.status(404).json({ success: false, message: " food Item not found loc:recc.model " })
         }
 
         res.status(200).json({ success: true, item })
 
     } catch (error) {
-        res.json({ success: false, message: "error in finding most freq item" })
+        res.status(500).json({ success: false, message: "error in finding most freq item" })
     }
 
 }

@@ -17,10 +17,12 @@ import ResetPassword from './pages/ResetPassword/ResetPassword.jsx'
 import AboutUs from './pages/AboutUs/AboutUs.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy.jsx'
 import VerifyEmail from './components/VerifyEmail/VerifyEmail.jsx'
+import NotFound from './pages/NotFound/NotFound.jsx';
 
 
 function App() {
-  const { showPopup, showForgotPopup, showVerifyPopup, isVerified} = useContext(StoreContext)
+  const { showPopup, showForgotPopup, showVerifyPopup, isVerified } = useContext(StoreContext)
+  
 
   return (
     <>
@@ -54,7 +56,7 @@ function App() {
 
           <Route path='/verify' element={<Verify />} />
 
-          <Route path='/myorders' element={<MyOrders />} />
+          <Route path='/myorders' element={<ProtectRoutes><MyOrders /></ProtectRoutes>} />
 
           <Route path='/reset-password/:resetToken' element={<ResetPassProtectiveRoute>
             <ResetPassword />
@@ -63,6 +65,9 @@ function App() {
           <Route path='/aboutus' element={<AboutUs />} />
 
           <Route path='/privacy' element={<PrivacyPolicy />} />
+          
+          <Route path='*' element={<NotFound/>} />
+          
         </Routes>
 
         <Footer />

@@ -6,7 +6,7 @@ import { StoreContext } from '../../ContextApi/StoreContext.jsx'
 import axios from "axios"
 
 const LoginPopup = () => {
-    const { SERVER_URL, setShowForgotPopup, setShowPopup, setToken, loadCartData, setShowVerifyPopup } = useContext(StoreContext)
+    const { SERVER_URL, setShowForgotPopup, setShowPopup, setToken, loadCartData, setShowVerifyPopup, isVerified } = useContext(StoreContext)
     const [localError, setLocalError] = useState("")
     const [currState, setCurrState] = useState("Login")
     const [data, setData] = useState({
