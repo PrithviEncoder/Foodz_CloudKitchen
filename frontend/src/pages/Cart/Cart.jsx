@@ -5,6 +5,7 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import './Cart.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 
 const Cart = () => {
@@ -21,6 +22,11 @@ const Cart = () => {
       else {
         setDiscount(coupon.value)
       }
+      toast.success("Coupon Applied Successfully")
+    }
+    else {
+      setDiscount(0);
+      toast.error("Invalid Coupon Code or conditions not met")
     }
     setCode("")
   }

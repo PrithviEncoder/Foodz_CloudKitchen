@@ -1,6 +1,9 @@
 
 .my-orders{
     margin:50px 0px;
+    min-height: 350px;
+    background-color: #F7F9FC;
+
 }
 
 .my-orders h2{
@@ -24,11 +27,19 @@
     grid-template-columns: 0.5fr 2fr 1fr 1fr 2fr 1fr;
     align-items: center;
     gap: 30px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     font-size: 14px;
     padding: 10px 20px;
     color: #454545;
     border: 1.8px solid rgb(127, 121, 121);
-    border-radius: 4px;
+    border: 1px solid #E0E6ED;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.my-orders-order:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .my-orders-order img{
@@ -50,6 +61,13 @@
     background-color:#454545 ;
     cursor: pointer;
     color: white;
+}
+
+
+.no-orders-image{
+    display: block;
+    margin: 0px auto;
+    width: 500px;
 }
 
 @media (max-width:650px){
