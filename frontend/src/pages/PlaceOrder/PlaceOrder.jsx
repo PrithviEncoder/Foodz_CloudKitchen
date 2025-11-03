@@ -3,7 +3,7 @@ import './PlaceOrder.css'
 import { StoreContext } from '../../ContextApi/StoreContext.jsx'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { faL } from '@fortawesome/free-solid-svg-icons'
+// import { faL } from '@fortawesome/free-solid-svg-icons'
 
 const PlaceOrder = () => {
 
@@ -50,7 +50,7 @@ const PlaceOrder = () => {
         orderItems.push(itemInfo)
       }
     })
-    console.log(orderItems)
+    console.log('order items:', orderItems)
 
     let orderData = {
       address: data,
@@ -59,7 +59,8 @@ const PlaceOrder = () => {
       discount: discount
     }
 
-    axios.post(SERVER_URL + "/api/order/place", orderData, { headers: { token } })
+
+    axios.post(SERVER_URL + "/api/order/place",orderData, { headers: { token } })
       .then(response => {
         if (response.data.success) {
           const { session_url } = response.data

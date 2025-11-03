@@ -8,19 +8,25 @@ const Verify = () => {
 
     const [searchParams,setSerachParams]=useSearchParams()
     const success=searchParams.get("success")
-    const orderId = searchParams.get("orderId")
+    const session_id = searchParams.get("session_id")
     const { SERVER_URL } = useContext(StoreContext)
     const navigate=useNavigate()
     
     const verifyPayment = async () => {
         
-        const response =await axios.post(SERVER_URL+"/api/order/verify",{success,orderId})
-        if (response.data.success) {
-             navigate('/myorders')
-        }
-        else {
-            navigate('/')
-        }
+      try {
+          const response = await axios.post(SERVER_URL+"/api/order/verify",{success, session_id})
+          if (response.data.success) {
+               navigate('/myorders')
+          }
+          else {
+              navigate('/')
+          }
+} catch (error) {
+        console.log(error.message)
+        console.error('Error in verifycomponent: ',error?.response?.data?.message);
+        
+}
     }
 
     //run this on page load so spinner is already there untill api is running
