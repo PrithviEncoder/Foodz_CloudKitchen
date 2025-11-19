@@ -71,3 +71,14 @@
     background-color: #1d4ed8; /* blue-700 */
   }
   
+  @media (max-width: 600px) {
+    .box {
+      width: 90%;
+    }
+  
+    .otp-input {
+      width: 2rem;
+      height: 2.5rem;
+      font-size: 1rem;
+    }
+  }
